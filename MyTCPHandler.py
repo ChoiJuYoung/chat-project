@@ -2,18 +2,16 @@ import socketserver
 from Client import Client
 from db import DB
 
+db = DB()
 class MyTcpHandler(socketserver.BaseRequestHandler):
     user = Client()
-
-    def __init__(self):
-        self.db = DB()
 
     def handle(self):
         try:
             username = self.register()
             msg = self.request.recv(1024)
             while msg:
-                if self.user.receive(username, msg.decode(), self.db) == -1:
+                if self.user.receive(username, msg.decode(), db) == -1:
                     self.request.close()
                     break
                 msg = self.request.recv(1024)

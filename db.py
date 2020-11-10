@@ -2,8 +2,11 @@ import mysql.connector
 
 class DB():
     def __init__(self):
-        self.dbconn = mysql.connector.connect(host='localhost', user='root', passwd='root', database='chat')
-        self.cursor = self.dbconn.cursor()
+        try:
+            self.dbconn = mysql.connector.connect(host='localhost', user='root', passwd='root', database='chat')
+            self.cursor = self.dbconn.cursor()
+        except Exception as e:
+            print(e)
 
 
     def select(self, sql):
